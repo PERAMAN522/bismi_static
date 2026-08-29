@@ -96,15 +96,23 @@
     transition:transform 0.4s var(--ease), background 0.4s var(--ease);
   }
   .nav-cta:hover{background:var(--marigold-deep);transform:translateY(-2px);}
+  .nav-links .mobile-brand{display:none;}
+  .nav-links .mobile-close{display:none;}
   .nav-toggle{display:none;font-size:26px;background:none;border:none;color:var(--navy);cursor:pointer;}
   @media(max-width:840px){
     .nav-links{position:fixed;top:0;right:-100%;width:72%;height:100vh;background:var(--navy);
-      flex-direction:column;justify-content:center;align-items:flex-start;padding:0 40px;gap:28px;
-      transition:right 0.5s var(--ease);}
+      flex-direction:column;justify-content:flex-start;align-items:flex-start;padding:28px 24px 32px;gap:20px;
+      transition:right 0.5s var(--ease), opacity 0.5s var(--ease); z-index:120; box-shadow:-12px 0 38px rgba(11,22,38,0.35);}
     .nav-links.open{right:0;}
-    .nav-links a{color:var(--parchment);font-size:19px;}
+    .nav-links .mobile-brand{display:flex;align-items:center;gap:10px;width:100%;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:8px;color:var(--parchment);font-family:'Fraunces',serif;font-size:20px;font-weight:600;}
+    .nav-links .mobile-brand .dot{width:9px;height:9px;border-radius:50%;background:var(--marigold);display:inline-block;}
+    .nav-links .mobile-brand span:last-child{color:var(--marigold);font-weight:400;}
+    .nav-links .mobile-close{margin-left:auto;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.04);color:var(--parchment);font-size:24px;cursor:pointer;}
+    .nav-links a{color:var(--parchment);font-size:19px;display:block;width:100%;padding:8px 0;}
+    .nav-links a::after{display:none;}
+    .nav-links a:hover{color:var(--marigold);}
     .nav-cta{display:none;}
-    .nav-toggle{display:block;}
+    .nav-toggle{display:block; z-index:130;}
   }
 
   /* ===== HERO ===== */
@@ -381,6 +389,87 @@
   .why-photo .wp-tag .wp-dot svg{width:18px;height:18px;stroke:#fff;}
   .why-photo .wp-tag strong{display:block;font-size:13.5px;color:var(--navy);}
   .why-photo .wp-tag span{font-size:11.5px;color:var(--mist);}
+
+  /* =========================================================
+     MOBILE RESPONSIVE FIXES
+     The hero section had no breakpoint at all, so it stayed a
+     forced 2-column grid on every screen size — this was the
+     main cause of the broken mobile layout. Everything below
+     stacks the layout properly and tunes spacing/sizing for
+     phones and small tablets.
+  ========================================================= */
+
+  /* ---- Hero: stack text over photo, fix 100vh + iOS toolbar quirks ---- */
+  @media(max-width:860px){
+    .hero{min-height:auto;}
+    .hero-grid{grid-template-columns:1fr;gap:36px;}
+    .hero-inner{padding:118px 0 56px;}
+    .hero-photo-frame{height:320px;}
+    .hero p.lead{max-width:100%;}
+  }
+  @media(max-width:480px){
+    .hero-inner{padding:104px 0 44px;}
+    .hero-photo-frame{height:250px;border-radius:16px;}
+    .hero h1{font-size:clamp(30px,8.5vw,40px);}
+    .hero p.lead{font-size:16px;}
+    .btn-row{flex-direction:column;gap:12px;}
+    .btn-row .btn-primary, .btn-row .btn-ghost{width:100%;text-align:center;padding:15px 20px;}
+    .trust-strip{gap:18px 26px;}
+    .trust-strip strong{font-size:22px;}
+    .hero-badge{padding:12px 14px;gap:10px;}
+    .hero-badge .badge-dot{width:36px;height:36px;font-size:14px;}
+    .hero-badge .badge-text strong{font-size:13px;}
+    .hero-badge .badge-text span{font-size:11px;}
+  }
+
+  /* ---- Section spacing tightens on small screens ---- */
+  @media(max-width:600px){
+    section{padding:64px 0;}
+    .stats-band{padding:36px 0;}
+    .section-head{margin-bottom:38px;}
+  }
+
+  /* ---- Prevent iOS Safari auto-zoom when tapping form fields ---- */
+  @media(max-width:600px){
+    form input, form select{font-size:16px;padding:14px 16px;}
+  }
+
+  /* ---- Image parallax bands: side padding + smaller counter on phones ---- */
+  @media(max-width:600px){
+    .image-band{height:42vh;min-height:260px;}
+    .image-band .band-content{padding:0 24px;}
+  }
+
+  /* ---- Why-section photo: cap height so it doesn't dominate the screen ---- */
+  @media(max-width:860px){
+    .why-photo{height:340px;}
+  }
+  @media(max-width:480px){
+    .why-photo{height:240px;}
+    .quote-card{padding:26px 22px;margin-top:24px;}
+    .quote-card p.qtext{font-size:18px;}
+  }
+
+  /* ---- Process steps: tighter numbering column on very small phones ---- */
+  @media(max-width:420px){
+    .process-item{grid-template-columns:44px 1fr;gap:16px;padding:24px 0;}
+    .process-num{font-size:26px;}
+  }
+
+  /* ---- College photo cards: slightly shorter on single-column phones ---- */
+  @media(max-width:560px){
+    .college-photo-card{height:250px;}
+  }
+
+  /* ---- WhatsApp quick-contact button full width on phones ---- */
+  @media(max-width:480px){
+    #waDirectBtn{width:100%;justify-content:center;}
+  }
+
+  /* ---- Footer stacks and centers on narrow screens ---- */
+  @media(max-width:600px){
+    .footer-row{flex-direction:column;text-align:center;gap:10px;}
+  }
 </style>
 </head>
 <body>
@@ -390,6 +479,12 @@
     <nav>
       <a href="#top" class="logo"><span class="dot"></span>BISMI <span style="font-weight:400;color:var(--banyan);">Education</span></a>
       <div class="nav-links" id="navLinks">
+        <div class="mobile-brand" aria-label="BISMI Education mobile menu">
+          <span class="dot"></span>
+          <span>BISMI</span>
+          <span>Education</span>
+          <button class="mobile-close" id="navClose" type="button" aria-label="Close menu">×</button>
+        </div>
         <a href="#services">Services</a>
         <a href="#colleges">Colleges</a>
         <a href="#process">Process</a>
@@ -397,7 +492,7 @@
         <a href="#contact">Contact</a>
       </div>
       <a href="#contact" class="nav-cta">Get Free Guidance</a>
-      <button class="nav-toggle" id="navToggle">☰</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
     </nav>
   </div>
 </header>
@@ -627,9 +722,35 @@
 
   // mobile nav toggle
   const navToggle = document.getElementById('navToggle');
+  const navClose = document.getElementById('navClose');
   const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  function setNavOpen(isOpen) {
+    navLinks.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    document.body.classList.toggle('nav-open', isOpen);
+  }
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = !navLinks.classList.contains('open');
+      setNavOpen(isOpen);
+    });
+  }
+
+  if (navClose) {
+    navClose.addEventListener('click', () => setNavOpen(false));
+  }
+
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNavOpen(false)));
+
+  document.addEventListener('click', (event) => {
+    const isMobileMenuOpen = navLinks.classList.contains('open');
+    const clickedInsideNav = navLinks.contains(event.target) || navToggle.contains(event.target);
+    if (isMobileMenuOpen && !clickedInsideNav) {
+      setNavOpen(false);
+    }
+  });
 
   // ===== WhatsApp contact (replaces backend email requirement) =====
   // IMPORTANT: replace with your real WhatsApp Business number, country code + number, no + or spaces
