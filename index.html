@@ -240,6 +240,21 @@
   }
   form button:hover{transform:translateY(-2px);background:var(--marigold-deep);color:#fff;}
 
+  /* Fix: make the counselling form dropdown and its options readable
+     (targeting only the contact form select so other selects remain unchanged) */
+  #contact form select{
+    background:rgba(255,255,255,0.06);
+    color:var(--parchment);
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+  }
+  /* Option styling: many browsers support color/background on <option> — set to dark so text is visible */
+  #contact form select option{
+    background:var(--navy);
+    color:var(--parchment);
+  }
+
   /* ===== FOOTER ===== */
   footer{background:var(--navy-deep);color:#8394a5;padding:40px 0;}
   .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13.5px;}
